@@ -1,0 +1,23 @@
+{
+  "automatic": false,
+  "wrap_with_p_tags": false,
+  "extensions": {
+    "abbr": true,
+    "attr_list": true,
+    "def_list": true,
+    "fenced_code": true,
+    "footnotes": true,
+    "md_in_html": true,
+    "tables": true,
+    "admonition": false,
+    "codehilite": false,
+    "legacy_attrs": false,
+    "legacy_em": false,
+    "meta": false,
+    "nl2br": false,
+    "sane_lists": false,
+    "smarty": true,
+    "toc": false,
+    "wikilinks": false
+  }
+}
