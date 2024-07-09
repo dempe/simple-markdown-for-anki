@@ -1,4 +1,5 @@
 import unittest
+import re
 
 from markdown_converter import convert_markdown_to_html_helper, replace_br_tags
 
@@ -17,6 +18,16 @@ class UnitTests(unittest.TestCase):
         expected = 'Two qualities a good writer must have:\n\n- {{c1::Confidence}},\n- {{c2::Ego}}'
         actual = replace_br_tags('Two qualities a good writer must have:<br><br>- {{c1::Confidence}},<br>- {{c2::Ego}}')
         self.assertEqual(expected, actual)
+
+    def test_markdown_conversion_with_br(self):
+        expected = 'Two qualities a good writer must have: <ul> <li>{{c1::Confidence}},</li> <li>{{c2::Ego}}</li> </ul>'
+        actual = convert_markdown_to_html_helper('Two qualities a good writer must have:<br><br>- {{c1::Confidence}},<br>- {{c2::Ego}}', build_meta())
+        self.assertEqual(normalize_whitespace(expected), normalize_whitespace(actual))
+
+
+def normalize_whitespace(text):
+    """Normalize whitespace by collapsing multiple spaces and newlines into single spaces."""
+    return re.sub(r'\s+', ' ', text).strip()
 
 
 def build_meta():
