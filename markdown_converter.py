@@ -11,8 +11,8 @@ from aqt.qt import *
 addon_path = os.path.dirname(__file__)
 
 
-def load_config():
-    with open(os.path.join(addon_path, 'config.json'), 'r') as file:
+def load_meta():
+    with open(os.path.join(addon_path, 'meta.json'), 'r') as file:
         return json.load(file)
 
 
@@ -39,11 +39,11 @@ def remove_p_tags(html: str) -> str:
 
 
 def convert_markdown_to_html_helper(md: str) -> str:
-    config = load_config()
-    extensions = [f"markdown.extensions.{key}" for key, value in config['extensions'].items() if value]
+    meta = load_meta()
+    extensions = [f"markdown.extensions.{key}" for key, value in meta['config']['extensions'].items() if value]
     html = markdown.markdown(md, extensions=extensions)
 
-    if config['wrap_with_p_tags']:
+    if meta['config']['wrap_with_p_tags']:
         return html
     return remove_p_tags(html)
 
@@ -54,5 +54,5 @@ def convert_markdown_to_html(md: str, _: Editor) -> str:
 
 addHook("setupEditorButtons", add_markdown_button)
 
-if load_config()['automatic']:
+if load_meta()['config']['automatic']:
     gui_hooks.editor_will_munge_html.append(convert_markdown_to_html)
