@@ -19,7 +19,7 @@ def load_meta():
 
 
 def convert_selection(editor: Editor) -> None:
-    html = convert_markdown_to_html_helper(editor.web.selectedText())
+    html = convert_markdown_to_html_helper(editor.web.selectedText(), load_meta())
     js = "setTimeout(function() { document.execCommand('%s', false, %s); }, 40); " % ("insertHTML", json.dumps(html))
 
     editor.web.eval(js)
