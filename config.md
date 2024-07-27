@@ -46,9 +46,6 @@ Documentation [here](https://python-markdown.github.io/extensions/definition_lis
 This is an important one.  Allows for adding codeblocks via three backticks or three tildas (```` ``` ````, `~~~`).  
 It also allows you to add a language class to your code blocks.
 
-NOTE: The Anki editor likes to add `<br>` tags whenever you hit return in the editor.  This breaks Markdown code 
-blocks.  A workaround that I found was to write the Markdown in the HTML editor `Ctrl-Shift-X`.
-
 Documentation [here](https://python-markdown.github.io/extensions/fenced_code_blocks/).
 
 ## footnotes
