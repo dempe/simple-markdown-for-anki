@@ -11,6 +11,7 @@ from aqt.qt import *
 
 addon_path = os.path.dirname(__file__)
 br_pattern = re.compile(r'<br>')
+mathjax_pattern = re.compile(r'(\\\(.+?\\\)|\\\[.+?\\\])')
 
 
 def load_meta():
@@ -48,7 +49,18 @@ def replace_br_tags(md: str) -> str:
 def convert_markdown_to_html_helper(md: str, meta: dict) -> str:
     config = meta['config']
     extensions = [f"markdown.extensions.{key}" for key, value in config['extensions'].items() if value]
-    html = markdown.markdown(replace_br_tags(md), extensions=extensions)
+    md = replace_br_tags(md)
+
+    # We have to process the text in parts, because Anki uses \(\) and \[\] for Mathjax delimiters. markdown.markdown will remove the backslashes.  Hence, we split the string based on these delimiters and ignore the text contained within them.
+    parts = re.split(mathjax_pattern, md)
+    processed_parts = []
+    for part in parts:
+        if mathjax_pattern.match(part):
+            processed_parts.append(part)
+            continue
+        processed_parts.append(markdown.markdown(part, extensions=extensions))
+
+    html = ''.join(processed_parts)
 
     if config['wrap_with_p_tags']:
         return html
