@@ -12,6 +12,7 @@ from aqt.qt import *
 addon_path = os.path.dirname(__file__)
 br_pattern = re.compile(r'<br>')
 mathjax_pattern = re.compile(r'(\\\(.+?\\\)|\\\[.+?\\\])')
+gt_pattern = re.compile(r'&gt;')
 
 
 def load_meta():
@@ -46,10 +47,15 @@ def replace_br_tags(md: str) -> str:
     return br_pattern.sub('\n', md)
 
 
+def replace_gt_entities(md: str) -> str:
+    """The Editor converts `>` to `&gt;`.  This breaks Markdown"""
+    return gt_pattern.sub('>', md)
+
+
 def convert_markdown_to_html_helper(md: str, meta: dict) -> str:
     config = meta['config']
     extensions = [f"markdown.extensions.{key}" for key, value in config['extensions'].items() if value]
-    md = replace_br_tags(md)
+    md = replace_gt_entities(replace_br_tags(md))
 
     # We have to process the text in parts, because Anki uses \(\) and \[\] for Mathjax delimiters. markdown.markdown will remove the backslashes.  Hence, we split the string based on these delimiters and ignore the text contained within them.
     parts = re.split(mathjax_pattern, md)

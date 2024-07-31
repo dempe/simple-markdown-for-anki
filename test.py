@@ -44,6 +44,18 @@ class UnitTests(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
+    def test_blockquotes(self):
+        expected = 'Here is a\n<blockquote>\nblockquote\n</blockquote>'
+        actual = convert_markdown_to_html_helper(r'Here is a<br>> blockquote', build_meta())
+
+        self.assertEqual(expected, actual)
+
+    def test_html_entity(self):
+        expected = 'Here is a\n<blockquote>\nblockquote\n</blockquote>'
+        actual = convert_markdown_to_html_helper(r'Here is a<br>&gt; blockquote', build_meta())
+
+        self.assertEqual(expected, actual)
+
     def test_that_escape_characters_are_not_removed_mixed_with_other_text(self):
         expected = r'This is some mathjax - \(3\log_{b}{x}\). isnt it cool!'
         actual = convert_markdown_to_html_helper(expected, build_meta())
