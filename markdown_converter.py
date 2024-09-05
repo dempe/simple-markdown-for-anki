@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 from anki.hooks import addHook
 from aqt.editor import Editor
 from aqt.qt import *
+from aqt import mw
+
 
 
 addon_path = os.path.dirname(__file__)
@@ -14,14 +16,12 @@ br_pattern = re.compile(r'<br>')
 mathjax_pattern = re.compile(r'(\\\(.+?\\\)|\\\[.+?\\\])')
 gt_pattern = re.compile(r'&gt;')
 
-
-def load_meta():
-    with open(os.path.join(addon_path, 'meta.json'), 'r') as file:
-        return json.load(file)
+#Gets config.json as config
+config = mw.addonManager.getConfig(__name__)
 
 
 def convert_selection(editor: Editor) -> None:
-    html = convert_markdown_to_html_helper(editor.web.selectedText(), load_meta())
+    html = convert_markdown_to_html_helper(editor.web.selectedText())
     js = "setTimeout(function() { document.execCommand('%s', false, %s); }, 40); " % ("insertHTML", json.dumps(html))
 
     editor.web.eval(js)
@@ -52,8 +52,7 @@ def replace_gt_entities(md: str) -> str:
     return gt_pattern.sub('>', md)
 
 
-def convert_markdown_to_html_helper(md: str, meta: dict) -> str:
-    config = meta['config']
+def convert_markdown_to_html_helper(md: str) -> str:
     extensions = [f"markdown.extensions.{key}" for key, value in config['extensions'].items() if value]
     md = replace_gt_entities(replace_br_tags(md))
 
@@ -74,10 +73,10 @@ def convert_markdown_to_html_helper(md: str, meta: dict) -> str:
 
 
 def convert_markdown_to_html(md: str, _: Editor) -> str:
-    return convert_markdown_to_html_helper(md, load_meta())
+    return convert_markdown_to_html_helper(md)
 
 
 addHook("setupEditorButtons", add_markdown_button)
 
-if load_meta()['config']['automatic']:
+if config['automatic']:
     gui_hooks.editor_will_munge_html.append(convert_markdown_to_html)

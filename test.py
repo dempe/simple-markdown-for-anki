@@ -75,6 +75,34 @@ class UnitTests(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
+    def test_definition_lists(self):
+        test_str = "Apple\n:   Pomaceous fruit of plants of the genus Malus in the family Rosaceae.\n\nOrange\n:   The fruit of an evergreen tree of the genus Citrus."
+        expected = '<dl>\n<dt>Apple</dt>\n<dd>Pomaceous fruit of plants of the genus Malus in the family Rosaceae.</dd>\n<dt>Orange</dt>\n<dd>The fruit of an evergreen tree of the genus Citrus.</dd>\n</dl>'
+        actual = convert_markdown_to_html_helper(test_str, build_meta())
+
+        self.assertEqual(expected, actual)
+
+    def test_definition_lists_with_one_space(self):
+        test_str = "Apple\n: Pomaceous fruit of plants of the genus Malus in the family Rosaceae.\n\nOrange\n: The fruit of an evergreen tree of the genus Citrus."
+        expected = '<dl>\n<dt>Apple</dt>\n<dd>Pomaceous fruit of plants of the genus Malus in the family Rosaceae.</dd>\n<dt>Orange</dt>\n<dd>The fruit of an evergreen tree of the genus Citrus.</dd>\n</dl>'
+        actual = convert_markdown_to_html_helper(test_str, build_meta())
+
+        self.assertEqual(expected, actual)
+
+    def test_definition_lists_with_br(self):
+        test_str = "Apple<br>: Pomaceous fruit of plants of the genus Malus in the family Rosaceae.<br><br>Orange<br>: The fruit of an evergreen tree of the genus Citrus."
+        expected = '<dl>\n<dt>Apple</dt>\n<dd>Pomaceous fruit of plants of the genus Malus in the family Rosaceae.</dd>\n<dt>Orange</dt>\n<dd>The fruit of an evergreen tree of the genus Citrus.</dd>\n</dl>'
+        actual = convert_markdown_to_html_helper(test_str, build_meta())
+
+        self.assertEqual(expected, actual)
+
+    def test_definition_lists_with_cloze(self):
+        test_str = "{{c1::Apple}}\n: Pomaceous fruit of plants of the genus Malus in the family Rosaceae.\n\n{{c2::Orange}}\n: The fruit of an evergreen tree of the genus Citrus."
+        expected = '<dl>\n<dt>{{c1::Apple}}</dt>\n<dd>Pomaceous fruit of plants of the genus Malus in the family Rosaceae.</dd>\n<dt>{{c2::Orange}}</dt>\n<dd>The fruit of an evergreen tree of the genus Citrus.</dd>\n</dl>'
+        actual = convert_markdown_to_html_helper(test_str, build_meta())
+
+        self.assertEqual(expected, actual)
+
 
 def normalize_whitespace(text):
     """Normalize whitespace by collapsing multiple spaces and newlines into single spaces."""
@@ -95,7 +123,7 @@ def build_meta():
                     "admonition": False,
                     "attr_list": False,
                     "codehilite": False,
-                    "def_list": False,
+                    "def_list": True,
                     "fenced_code": True,
                     "footnotes": False,
                     "legacy_attrs": False,
