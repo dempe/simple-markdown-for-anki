@@ -17,6 +17,21 @@ where it makes sense to wrap a non-block HTML element like a code tag in a `<p>`
 Anki automatically wraps fields with `<p>`, so there is no need for this behavior.  Thus, the default value for this 
 is `false`.  Set it to `true` if you would like the original behavior.
 
+## replace_non_breaking_spaces
+
+The editor adds non-breaking spaces (`&nbsp;`) often. The Markdown parser does not work with non-breaking spaces. For example:
+
+```markdown
+My List:
+
+-&nbsp;Item 1
+-&nbsp;Item 2
+```
+
+The above might look fine in the editor (view the HTML with Ctrl-Shift-X to see the non-breaking spaces), but it will not be parsed as a Markdown list.
+
+This option will automatically convert all non-breaking spaces to regular spaces.
+
 ## extensions
 
 These are various extensions to the Markdown specification that you can enable.  They add additional features such 

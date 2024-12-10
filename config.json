@@ -1,6 +1,7 @@
 {
   "automatic": true,
   "wrap_with_p_tags": false,
+  "replace_non_breaking_spaces": false,
   "extensions": {
     "abbr": false,
     "attr_list": false,
