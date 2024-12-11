@@ -16,7 +16,7 @@ As of January 2024 (I haven't checked the exact version), the Anki editor regret
 
 ## Another note on code blocks and syntax highlighting
 
-The `fenced_code` extension (enabled by default) allows you to enter code blocks.  Moreover, you can specify the language of the code like in Github flavored Markdown.  ````` ```php ```` will produce `<pre><code class="language-php">`.  This allows you to include syntax highlighting for your code blocks.
+The `fenced_code` extension (enabled by default) allows you to enter code blocks.  Moreover, you can specify the language of the code like in Github flavored Markdown.  ```` ```php ```` will produce `<pre><code class="language-php">`.  This allows you to include syntax highlighting for your code blocks.
 
 FWIW, to install a syntax highlighter:
 
