@@ -2,12 +2,16 @@ import json
 import re
 import os
 from typing import List
-from markdown_core import convert_markdown_to_html_helper
+
 from aqt import gui_hooks
 from anki.hooks import addHook
 from aqt.editor import Editor
 from aqt.qt import *
 from aqt import mw
+
+from .markdown_core import (
+    convert_markdown_to_html_helper,
+)
 
 addon_path = os.path.dirname(__file__)
 br_pattern = re.compile(r'<br>')
