@@ -1,4 +1,4 @@
-### automatic
+## automatic
 
 Set to `true` if you want to automatically convert Markdown to HTML (i.e., without selecting text and hitting a 
 button).  Note - even in automatic mode, changes do not take effect immediately. Changes will be applied after you 
@@ -32,108 +32,114 @@ The above might look fine in the editor (view the HTML with Ctrl-Shift-X to see 
 
 This option will automatically convert all non-breaking spaces to regular spaces.
 
+## remove_empty_divs
+
+Pasting text from some sources like PDFs causes Anki to wrap the text in multiple empty `<div>` elements.  This breaks Markdown formatting.
+
+Turn this option on if you are having issues due to empty `<div>`s. This will simply remove empty `<div>`s from the DOM. Any `<div>` containing attributes is not affected.
+
 ## extensions
 
 These are various extensions to the Markdown specification that you can enable.  They add additional features such 
 as code blocks and tables, for example.
 
-## abbr
+### abbr
 
 Allows text to be wrapped in an `<abbr>` tag.
 
 Documentation [here](https://python-markdown.github.io/extensions/abbreviations/).
 
-
-## attr_list
+### attr_list
 
 Allows you to add HTML attributes to an element.
 
 Documentation [here](https://python-markdown.github.io/extensions/attr_list/).
 
-## def_list
+### def_list
 
 Create definition lists in Markdown.
 
 Documentation [here](https://python-markdown.github.io/extensions/definition_lists/).
 
-## fenced_code
+### fenced_code
 
 This is an important one.  Allows for adding codeblocks via three backticks or three tildas (```` ``` ````, `~~~`).  
 It also allows you to add a language class to your code blocks.
 
 Documentation [here](https://python-markdown.github.io/extensions/fenced_code_blocks/).
 
-## footnotes
+### footnotes
 
 Add footnotes via Markdown.
 
 Documentation [here](https://python-markdown.github.io/extensions/footnotes/).
 
-## md_in_html
+### md_in_html
 
 By default, Markdown ignores any content within a raw HTML block-level element. With the md-in-html extension 
 enabled, the content of a raw HTML block-level element can be parsed as Markdown.
 
 Documentation [here](https://python-markdown.github.io/extensions/md_in_html/).
 
-## tables
+### tables
 
 Another pretty useful one.  Write tables via Markdown.
 
 Documentation [here](https://python-markdown.github.io/extensions/tables/).
 
-## admonition
+### admonition
 
 Documentation [here](https://python-markdown.github.io/extensions/admonition/).
 
-## codehilite
+### codehilite
 
 Allows for lots of code syntax highlighting customizations.  All via Markdown!
 
 Documentation [here](https://python-markdown.github.io/extensions/code_hilite/).
 
-## legacy_attrs
+### legacy_attrs
 
 Restores Python-Markdown’s original attribute setting syntax.
 
 Documentation [here](https://python-markdown.github.io/extensions/legacy_attrs/).
 
-## legacy_em
+### legacy_em
 
 Restores Markdown’s original behavior for emphasis and strong syntax when using underscores.
 
 Documentation [here](https://python-markdown.github.io/extensions/legacy_em/).
 
-## meta
+### meta
 
 Add a YAML metadata block.  Not sure why this would be useful in Anki.
 
 Documentation [here](https://python-markdown.github.io/extensions/meta_data/).
 
-## nl2br
+### nl2br
+
 "Cause newlines to be treated as hard breaks; like StackOverflow and GitHub flavored Markdown do."
 
 Documentation [here](https://python-markdown.github.io/extensions/nl2br/).
 
-## sane_lists
+### sane_lists
 
 Changes Markdown's list-parsing behavior to be "less surprising".
 
 Documentation [here](https://python-markdown.github.io/extensions/sane_lists/).
 
-## smarty
+### smarty
 
 "The SmartyPants extension converts ASCII dashes, quotes and ellipses to their HTML entity equivalents."
 
 Documentation [here](https://python-markdown.github.io/extensions/smarty/).
 
-## toc
+### toc
 
 Add a table of contents to your cards.  Not sure why you would ever need this in Anki.
 
 Documentation [here](https://python-markdown.github.io/extensions/toc/).
 
-## wikilinks
+### wikilinks
 
 Add wiki-style links.
 

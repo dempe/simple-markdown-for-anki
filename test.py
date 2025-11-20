@@ -1,7 +1,7 @@
 import unittest
 import re
 
-from markdown_converter import convert_markdown_to_html_helper, replace_br_tags
+from markdown_core import convert_markdown_to_html_helper, replace_br_tags
 
 
 class UnitTests(unittest.TestCase):
@@ -11,6 +11,18 @@ class UnitTests(unittest.TestCase):
     def test_nbsp_are_converted(self):
         expected = 'My List:\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>'
         actual = convert_markdown_to_html_helper('My List:<br><br>-&nbsp;Item 1\n-&nbsp;Item 2', build_config(replace_non_breaking_spaces=True))
+
+        self.assertEqual(expected, actual)
+
+    def test_empty_divs_are_removed(self):
+        expected = 'customers can demand a refund if an {{c1::SLA}} is not met'
+        actual = convert_markdown_to_html_helper('<div> <div> <div> <div>customers can demand a refund if an {{c1::SLA}} is not met</div></div></div></div>', build_config(remove_empty_divs=True))
+
+        self.assertEqual(expected, actual)
+
+    def test_non_empty_divs_are_not_removed(self):
+        expected = '<div class="dont delete me">customers can demand a refund if an {{c1::SLA}} is not met</div>'
+        actual = convert_markdown_to_html_helper('<div class="dont delete me">customers can demand a refund if an {{c1::SLA}} is not met</div>', build_config(remove_empty_divs=True))
 
         self.assertEqual(expected, actual)
 
@@ -134,6 +146,7 @@ def build_config(
         automatic=True,
         wrap_with_p_tags=False,
         replace_non_breaking_spaces=False,
+        remove_empty_divs=False,
         abbr=False,
         attr_list=False,
         def_list=True,
@@ -162,6 +175,7 @@ def build_config(
         "automatic": automatic,
         "wrap_with_p_tags": wrap_with_p_tags,
         "replace_non_breaking_spaces": replace_non_breaking_spaces,
+        'remove_empty_divs': remove_empty_divs,
         "extensions": {
             "abbr": abbr,
             "attr_list": attr_list,
