@@ -71,7 +71,7 @@ def convert_markdown_to_html_helper(md: str, config: dict) -> str:
             continue
         processed_parts.append(markdown.markdown(part, extensions=extensions))
 
-    html = ''.join(processed_parts)
+    html = ''.join(processed_parts).strip()
 
     if config['wrap_with_p_tags']:
         return html
